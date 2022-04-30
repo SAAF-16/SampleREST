@@ -2,6 +2,7 @@ package com.example.samplerest.customer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,6 +23,15 @@ public class CustomerController {
     public CustomerDTO getSingleCustomer(@PathVariable("customerId") BigDecimal customerId) {
         Customer customer = customerService.getCustomer(customerId);
         return customerService.entityToDTO(customer);
+    }
+
+    @GetMapping("/html/{customerId}")
+    public ModelAndView getHtmlSingleCustomer(@PathVariable("customerId") BigDecimal customerId, ModelAndView modelAndView) {
+        Customer customer = customerService.getCustomer(customerId);
+        modelAndView.addObject("customer", customerService.entityToDTO(customer));
+        modelAndView.setViewName("customer/list");
+
+        return modelAndView;
     }
 
     @GetMapping
