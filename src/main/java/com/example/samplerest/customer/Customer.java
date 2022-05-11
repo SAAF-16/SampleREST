@@ -15,7 +15,7 @@ public class Customer {
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "customer_sequence"
     )
 
     private BigDecimal id;
