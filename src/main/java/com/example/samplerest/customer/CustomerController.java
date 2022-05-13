@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,13 +19,13 @@ public class CustomerController {
     }
 
     @GetMapping(path = "{customerId}")
-    public CustomerDTO getSingleCustomer(@PathVariable("customerId") BigDecimal customerId) {
+    public CustomerDTO getSingleCustomer(@PathVariable("customerId") Long customerId) {
         Customer customer = customerService.getCustomer(customerId);
         return customerService.entityToDTO(customer);
     }
 
     @GetMapping("/html/{customerId}")
-    public ModelAndView getHtmlSingleCustomer(@PathVariable("customerId") BigDecimal customerId, ModelAndView modelAndView) {
+    public ModelAndView getHtmlSingleCustomer(@PathVariable("customerId") Long customerId, ModelAndView modelAndView) {
         Customer customer = customerService.getCustomer(customerId);
         modelAndView.addObject("customer", customerService.entityToDTO(customer));
         modelAndView.setViewName("customer/list");
@@ -50,12 +49,12 @@ public class CustomerController {
     }
 
     @DeleteMapping(path = "{customerId}")
-    public void deleteCustomer(@PathVariable("customerId") BigDecimal customerId) {
+    public void deleteCustomer(@PathVariable("customerId") Long customerId) {
         customerService.deleteCustomer(customerId);
     }
 
     @PutMapping(path = "{customerId}")
-    public void updateCustomer(@PathVariable("customerId") BigDecimal customerId,
+    public void updateCustomer(@PathVariable("customerId") Long customerId,
                                @RequestParam(required = false) String name,
                                @RequestParam(required = false) String email) {
 

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class CustomerService {
         this.modelMapper = modelMapper;
     }
 
-    public Customer getCustomer(BigDecimal customerId) {
+    public Customer getCustomer(Long customerId) {
         boolean exists = customerRepository.existsById(customerId);
         if (!exists) {
             throw new IllegalStateException(
@@ -43,7 +42,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(BigDecimal customerId) {
+    public void deleteCustomer(Long customerId) {
         boolean exists = customerRepository.existsById(customerId);
         if (!exists) {
             throw new IllegalStateException(
@@ -53,7 +52,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateCustomer(BigDecimal customerId, String name, String email) {
+    public void updateCustomer(Long customerId, String name, String email) {
         boolean exists = customerRepository.existsById(customerId);
         if (!exists) {
             throw new IllegalStateException(
@@ -63,7 +62,8 @@ public class CustomerService {
         if (name != null && !name.isEmpty() && !name.equals(customer.getName())) {
             customer.setName(name);
         }
-        if (email != null && !email.isEmpty()) {
+        //add email check
+        if (email != null && !email.isEmpty() && !email.equals(customer.getEmail())) {
             Optional<Customer> customerOptional = customerRepository.findCustomerByEmail(email);
             if (customerOptional.isPresent()) {
                 throw new IllegalStateException("email already taken");

@@ -1,7 +1,6 @@
 package com.example.samplerest.customer;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table
@@ -18,7 +17,7 @@ public class Customer {
             generator = "customer_sequence"
     )
 
-    private BigDecimal id;
+    private Long id;
     private String name;
     private String email;
 
@@ -30,11 +29,11 @@ public class Customer {
         this.email = email;
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,14 +51,5 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 }
